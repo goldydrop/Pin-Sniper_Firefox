@@ -3,6 +3,12 @@
 	"name": "Pin Sniper",
 	"version": "3.0",
 	"description": "Downloads boards, Images, GIFs, & Videos from Pinterest.",
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "pinsniper-companion@yourdomain.com",
+			"strict_min_version": "109.0"
+		}
+	},
 	"permissions": [
 		"activeTab",
 		"scripting",
@@ -28,7 +34,8 @@
 		}
 	},
 	"background": {
-		"scripts": [ "background.js" ]
+		"scripts": [ "background.js" ],
+		"service_worker": "background.js"
 	},
 	"declarative_net_request": {
 		"rule_resources": [
