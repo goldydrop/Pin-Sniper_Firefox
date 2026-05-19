@@ -12,7 +12,7 @@ This is the companion extension that bridges your Firefox browser with the **[Pi
 
 ### 🛠️ How to Install in Firefox (Developer Mode)
 
-Since this extension is custom-built and not on the public Firefox Add-ons store, you will need to load it manually:
+Since this extension is custom-built and not on the public Firefox Add-ons store yet, you will need to load it manually:
 
 1. **Download the Extension** > Click the green **Code** button at the top of this page and select **Download ZIP**. Extract the folder to your computer.
 
