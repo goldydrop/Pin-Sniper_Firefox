@@ -24,16 +24,12 @@
 		"http://127.0.0.1:31337/*"
 	],
 	"icons": {
-		"16": "icon16.png",
-		"48": "icon48.png",
-		"128": "icon128.png"
+		"512": "icon.png"
 	},
 	"action": {
 		"default_popup": "popup.html",
 		"default_icon": {
-			"16": "icon16.png",
-			"48": "icon48.png",
-			"128": "icon128.png"
+			"512": "icon.png"
 		}
 	},
 	"background": {
