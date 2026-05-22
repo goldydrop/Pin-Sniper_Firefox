@@ -32,29 +32,77 @@ function initEagleMenu() {
     const box = document.createElement('div');
     box.style.cssText = `background: #1e1e1e; color: #fff; width: 380px; padding: 25px; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); display: flex; flex-direction: column; gap: 15px; border: 1px solid #333;`;
 
-    box.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-            <h3 style="margin: 0; color: #e60023; font-size: 18px;">🎯 Save to Pin Sniper</h3>
-            <span id="eagle-close" style="cursor: pointer; font-size: 22px; color: #888; transition: color 0.2s;">&times;</span>
-        </div>
-        
-        <div>
-            <label style="font-size: 13px; font-weight: bold; color: #aaa; margin-bottom: 8px; display: block;">Save as Folder:</label>
-            <input type="text" id="eagle-folder-name" value="${getAutoName()}" placeholder="Type a folder name..." 
-                style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #2a2a2a; color: white; outline: none; box-sizing: border-box;">
-        </div>
+    // --- WARNING-FREE NATIVE DOM BUILDING ---
+    
+    // 1. Header
+    const headerDiv = document.createElement('div');
+    headerDiv.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;';
+    const h3Title = document.createElement('h3');
+    h3Title.style.cssText = 'margin: 0; color: #e60023; font-size: 18px;';
+    h3Title.textContent = '🎯 Save to Pin Sniper';
+    const closeSpan = document.createElement('span');
+    closeSpan.id = 'eagle-close';
+    closeSpan.style.cssText = 'cursor: pointer; font-size: 22px; color: #888; transition: color 0.2s;';
+    closeSpan.textContent = '×';
+    headerDiv.appendChild(h3Title);
+    headerDiv.appendChild(closeSpan);
 
-        <div id="action-buttons" style="display: flex; gap: 12px; margin-top: 10px;">
-            <button id="eagle-auto-btn" style="flex: 1; padding: 12px; border-radius: 25px; border: none; background: #333; color: white; cursor: pointer; font-weight: bold; font-size: 13px; transition: background 0.2s;">Auto Name</button>
-            <button id="eagle-save-btn" style="flex: 1; padding: 12px; border-radius: 25px; border: none; background: #e60023; color: white; cursor: pointer; font-weight: bold; font-size: 13px; transition: transform 0.1s;">Save to App</button>
-        </div>
-        
-        <div id="status-container" style="display: none; text-align: center; padding: 10px;">
-            <h3 id="eagle-status-title" style="margin: 0 0 10px 0; color: #ff9900; font-size: 20px;">🔍 Scanning Local Feed...</h3>
-            <p id="eagle-status-desc" style="color: #aaa; font-size: 13px; margin-bottom: 25px;">Check your background app for live logs.</p>
-            <button id="eagle-stop-btn" style="width: 100%; padding: 14px; border-radius: 25px; border: none; background: #d32f2f; color: white; cursor: pointer; font-weight: bold; font-size: 14px; transition: background 0.2s; box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);">🛑 STOP SCROLLING</button>
-        </div>
-    `;
+    // 2. Input Section
+    const inputDiv = document.createElement('div');
+    const inputLabel = document.createElement('label');
+    inputLabel.style.cssText = 'font-size: 13px; font-weight: bold; color: #aaa; margin-bottom: 8px; display: block;';
+    inputLabel.textContent = 'Save as Folder:';
+    const inputField = document.createElement('input');
+    inputField.type = 'text';
+    inputField.id = 'eagle-folder-name';
+    inputField.value = getAutoName();
+    inputField.placeholder = 'Type a folder name...';
+    inputField.style.cssText = 'width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #2a2a2a; color: white; outline: none; box-sizing: border-box;';
+    inputDiv.appendChild(inputLabel);
+    inputDiv.appendChild(inputField);
+
+    // 3. Action Buttons
+    const actionDiv = document.createElement('div');
+    actionDiv.id = 'action-buttons';
+    actionDiv.style.cssText = 'display: flex; gap: 12px; margin-top: 10px;';
+    const autoBtn = document.createElement('button');
+    autoBtn.id = 'eagle-auto-btn';
+    autoBtn.style.cssText = 'flex: 1; padding: 12px; border-radius: 25px; border: none; background: #333; color: white; cursor: pointer; font-weight: bold; font-size: 13px; transition: background 0.2s;';
+    autoBtn.textContent = 'Auto Name';
+    const saveBtn = document.createElement('button');
+    saveBtn.id = 'eagle-save-btn';
+    saveBtn.style.cssText = 'flex: 1; padding: 12px; border-radius: 25px; border: none; background: #e60023; color: white; cursor: pointer; font-weight: bold; font-size: 13px; transition: transform 0.1s;';
+    saveBtn.textContent = 'Save to App';
+    actionDiv.appendChild(autoBtn);
+    actionDiv.appendChild(saveBtn);
+
+    // 4. Status Container
+    const statusDiv = document.createElement('div');
+    statusDiv.id = 'status-container';
+    statusDiv.style.cssText = 'display: none; text-align: center; padding: 10px;';
+    const statusTitle = document.createElement('h3');
+    statusTitle.id = 'eagle-status-title';
+    statusTitle.style.cssText = 'margin: 0 0 10px 0; color: #ff9900; font-size: 20px;';
+    statusTitle.textContent = '🔍 Scanning Local Feed...';
+    const statusDesc = document.createElement('p');
+    statusDesc.id = 'eagle-status-desc';
+    statusDesc.style.cssText = 'color: #aaa; font-size: 13px; margin-bottom: 25px;';
+    statusDesc.textContent = 'Check your background app for live logs.';
+    const stopBtn = document.createElement('button');
+    stopBtn.id = 'eagle-stop-btn';
+    stopBtn.style.cssText = 'width: 100%; padding: 14px; border-radius: 25px; border: none; background: #d32f2f; color: white; cursor: pointer; font-weight: bold; font-size: 14px; transition: background 0.2s; box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);';
+    stopBtn.textContent = '🛑 STOP SCROLLING';
+    statusDiv.appendChild(statusTitle);
+    statusDiv.appendChild(statusDesc);
+    statusDiv.appendChild(stopBtn);
+
+    // Append everything to the box
+    box.appendChild(headerDiv);
+    box.appendChild(inputDiv);
+    box.appendChild(actionDiv);
+    box.appendChild(statusDiv);
+    
+    // --- END WARNING-FREE CODE ---
 
     overlay.appendChild(box);
     document.body.appendChild(overlay);
